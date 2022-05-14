@@ -1,4 +1,4 @@
-FROM matomo:4.9.0-fpm-alpine
+FROM matomo:4.9.1-fpm-alpine
 RUN apk --update add rsync supervisor
 RUN mkdir -p /etc/supervisor.d /tmp/matomo
 COPY ${PWD}/config.ini.php /usr/src/matomo/config/config.ini.php
