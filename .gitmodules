@@ -1,0 +1,3 @@
+[submodule "docker/fpm-alpine/Plugins/ExtraTools"]
+	path = docker/fpm-alpine/Plugins/ExtraTools
+	url = https://github.com/digitalist-se/extratools.git
