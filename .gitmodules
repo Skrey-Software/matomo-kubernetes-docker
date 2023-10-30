@@ -4,6 +4,3 @@
 [submodule "docker/fpm-alpine/Plugins/QueueTracking"]
 	path = docker/fpm-alpine/Plugins/QueuedTracking
 	url = https://github.com/matomo-org/plugin-QueuedTracking.git
-[submodule "docker/fpm-alpine/Plugins/CustomVariables"]
-	path = docker/fpm-alpine/Plugins/CustomVariables
-	url = https://github.com/matomo-org/plugin-CustomVariables.git
