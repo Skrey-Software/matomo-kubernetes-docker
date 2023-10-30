@@ -1,12 +1,24 @@
 FROM matomo:4.15.1-fpm-alpine
-RUN apk --update add rsync supervisor
+
+RUN apk --update add rsync supervisor bash
+RUN apk add --no-cache autoconf freetype-dev icu-dev libjpeg-turbo-dev libpng-dev libzip-dev openldap-dev pcre-dev patch;
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd ldap mysqli opcache pdo_mysql zip
+
 RUN mkdir -p /etc/supervisor.d /tmp/matomo
-COPY ${PWD}/config.ini.php /usr/src/matomo/config/config.ini.php
-COPY ${PWD}/Plugins/ExtraTools/ /usr/src/matomo/plugins/ExtraTools/
-COPY ${PWD}/Plugins/QueuedTracking/ /usr/src/matomo/plugins/QueuedTracking/
-COPY ${PWD}/Plugins/CustomVariables/ /usr/src/matomo/plugins/CustomVariables/
-COPY ${PWD}/Plugins/UserConsole/ /usr/src/matomo/plugins/UserConsole/
-COPY ${PWD}/Plugins/CustomAlerts/ /usr/src/matomo/plugins/CustomAlerts/
-#COPY ${PWD}/Plugins/CustomOptOut-2.0.1/ /usr/src/matomo/plugins/CustomOptOut/
-COPY ${PWD}/Plugins/MarketingCampaignsReporting/ /usr/src/matomo/plugins/MarketingCampaignsReporting/
-COPY ${PWD}/GeoIP2/GeoLite2-City.mmdb /usr/src/matomo/misc/DBIP-City.mmdb
+COPY config.ini.php /usr/src/matomo/config/config.ini.php
+
+COPY plugins_v2.sh /tmp/plugins.sh
+RUN mkdir -p /tmp/plugins
+RUN chmod ugo+x /tmp/plugins.sh && \
+    /bin/bash -c '/tmp/plugins.sh'
+
+RUN chown www-data:www-data /etc/supervisord.conf \
+    && touch /var/log/supervisord.log \
+    && chown www-data:www-data /var/log/supervisord.log 
+
+RUN chown www-data:www-data -R /var/www/html
+RUN rsync -crlOt --no-owner --no-group --no-perms /var/www/html/ /usr/src/matomo/ \
+    && chown www-data:www-data -R /usr/src/matomo/
+
+WORKDIR /var/www/html
