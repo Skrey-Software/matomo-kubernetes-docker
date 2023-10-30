@@ -13,6 +13,3 @@
 [submodule "docker/fpm-alpine/Plugins/CustomAlerts"]
 	path = docker/fpm-alpine/Plugins/CustomAlerts
 	url = https://github.com/matomo-org/plugin-CustomAlerts.git
-[submodule "docker/fpm-alpine/Plugins/MarketingCampaignsReporting"]
-	path = docker/fpm-alpine/Plugins/MarketingCampaignsReporting
-	url = https://github.com/matomo-org/plugin-MarketingCampaignsReporting.git
