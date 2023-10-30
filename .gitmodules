@@ -7,6 +7,3 @@
 [submodule "docker/fpm-alpine/Plugins/CustomVariables"]
 	path = docker/fpm-alpine/Plugins/CustomVariables
 	url = https://github.com/matomo-org/plugin-CustomVariables.git
-[submodule "docker/fpm-alpine/Plugins/UserConsole"]
-	path = docker/fpm-alpine/Plugins/UserConsole
-	url = https://github.com/digitalist-se/userconsole.git
